@@ -1,3 +1,13 @@
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
+metadata:
+  name: lauriku-ing
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /.*
+        backend:
+          serviceName: lauriku-svc
+          servicePort: 3000
