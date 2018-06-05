@@ -299,3 +299,5 @@ spec:
       name: memory
       targetAverageUtilization: 50
 ```
+
+Apply this with `kubectl apply deplo/hpa.yml`.
