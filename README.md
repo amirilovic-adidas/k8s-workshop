@@ -135,6 +135,8 @@ a. You know the drill, the `ingress` controller needs some identifying informati
 ```yaml
 metadata:
   name: lauriku-ing
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 ```
 
 b. Then the `spec`. For the `ingress`, this is a set of rules that determine what services traffic is routed to, based on routes for example.
@@ -234,6 +236,12 @@ Pod Template:
 Looking here, we can see that _revision #1_ has the previous version of the image. So the rollback to this version could be done with: `kubectl rollout undo deployment/lauriku-app --to-revision=2`. Just saying `rollout undo deployment/<deployment_name>` without `--to-revision`, will perform a rollback to the previous version.
 
 ## 7. Resource requests and limits
+You can limit the resource usage of different pods, with resource `limits` and `requests`. Requests are used to reserve a certain amount of cpu/mem resources when a pod starts.
+
+Try your hand in editing a manifest "live", by doing the following:
+
+
+
 
 
 ## 8. Horizontal Pod Autoscaling
