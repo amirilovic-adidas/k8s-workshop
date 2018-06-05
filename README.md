@@ -235,13 +235,40 @@ Pod Template:
 
 Looking here, we can see that _revision #1_ has the previous version of the image. So the rollback to this version could be done with: `kubectl rollout undo deployment/lauriku-app --to-revision=2`. Just saying `rollout undo deployment/<deployment_name>` without `--to-revision`, will perform a rollback to the previous version.
 
-## 7. Resource requests and limits
-You can limit the resource usage of different pods, with resource `limits` and `requests`. Requests are used to reserve a certain amount of cpu/mem resources when a pod starts.
+### Editing resources live
+Instead of always editing the resources and then applying the changes, you can also edit them live if needed.
 
 Try your hand in editing a manifest "live", by doing the following:
 
+```bash
+KUBE_EDITOR="vim" # or if you want to use VScode, 'code -w'
+kubectl edit deployment/lauriku-app
+```
 
+## 7. Resource requests and limits
+You can limit the resource usage of different pods, with resource `limits` and `requests`. Requests are used to reserve a certain amount of cpu/mem resources when a pod starts.
 
+Add the following to the deployment manifest:
 
+```yaml
+spec:
+  template:
+    spec:
+      containers:
+        - name: lauriku-app
+          ...
+          resources:
+          requests:
+            memory: "32Mi"
+            cpu: "5m"
+          limits:
+            memory: "64Mi"
+            cpu: "10m"
+
+```
+
+And apply the manifest with `kubectl apply -f deploy/deployment.yml`.
 
 ## 8. Horizontal Pod Autoscaling
+
+`minikube addons open heapster`
