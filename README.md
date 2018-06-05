@@ -19,8 +19,8 @@ Make sure you have `docker`, `minikube` and `kubectl` installed.
 * Clone it
 
 ## Running the container locally
-* `docker build -t <username>/k8s-workshop .`
-* `docker run -it --rm -p 3000:3000 <username>/k8s-workshop`
+* `docker build -t lauriku/k8s-workshop .`
+* `docker run -it --rm -p 3000:3000 lauriku/k8s-workshop`
 * Browse [localhost:3000](http://localhost:3000)
 
 ## (For extra credit!) Creating a docker hub account
@@ -234,5 +234,6 @@ Pod Template:
 Looking here, we can see that _revision #1_ has the previous version of the image. So the rollback to this version could be done with: `kubectl rollout undo deployment/lauriku-app --to-revision=2`. Just saying `rollout undo deployment/<deployment_name>` without `--to-revision`, will perform a rollback to the previous version.
 
 ## 7. Resource requests and limits
+
 
 ## 8. Horizontal Pod Autoscaling
