@@ -274,3 +274,28 @@ And apply the manifest with `kubectl apply -f deploy/deployment.yml`.
 
 You can first check the Grafana dashboard to see a few different metrics in action, `minikube addons open heapster`.
 
+For the HPA to work, we need a HorizontalPodAutoscaler resource. You can create this to `deploy/hpa.yml`.
+
+```yaml
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: lauriku-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    name: lauriku-app
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 30
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 50
+```
