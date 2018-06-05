@@ -154,7 +154,7 @@ spec:
 
 Here we just route all traffic to port 3000 of the `lauriku-svc` service.
 
-Finally, apply this manifest with `kubectl apply -f deploy/ingress.yml`. It can then be inspected by `kubectl get ingress lauriku-svc -o yaml`.
+Finally, apply this manifest with `kubectl apply -f deploy/ingress.yml`. It can then be inspected by `kubectl get ingress lauriku-ing -o yaml`.
 
 ### Setting up connectivity
 In order to get the correct ip address and port the deployment from the `docker-machine` that is running `minikube`, run the following snippet, and it should open up a browser pointing to the ingress created in the previous step.
