@@ -137,6 +137,7 @@ metadata:
   name: lauriku-ing
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 ```
 
 b. Then the `spec`. For the `ingress`, this is a set of rules that determine what services traffic is routed to, based on routes for example.
@@ -259,10 +260,10 @@ spec:
           ...
           resources:
           requests:
-            memory: "32Mi"
+            memory: "128Mi"
             cpu: "5m"
           limits:
-            memory: "64Mi"
+            memory: "256Mi"
             cpu: "10m"
 
 ```
@@ -271,4 +272,5 @@ And apply the manifest with `kubectl apply -f deploy/deployment.yml`.
 
 ## 8. Horizontal Pod Autoscaling
 
-`minikube addons open heapster`
+You can first check the Grafana dashboard to see a few different metrics in action, `minikube addons open heapster`.
+
