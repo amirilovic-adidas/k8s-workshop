@@ -20,7 +20,7 @@ Make sure you have `docker`, `minikube` and `kubectl` installed.
 
 ## Running the container locally
 * `docker build -t <username>/k8s-workshop .`
-* `docker run -it --rm -p 3000:3000 <username>/k8s-workshop``
+* `docker run -it --rm -p 3000:3000 <username>/k8s-workshop`
 * Browse [localhost:3000](http://localhost:3000)
 
 ## (For extra credit!) Creating a docker hub account
@@ -37,7 +37,7 @@ minikube is an implementation of a local Kubernetes cluster, that can be used wh
 * BE WARNED: minikube actually overwrites your existing kubeconfig, so take a backup of your `~/.kube/config` if you wish to preserve it.
 * Run `minikube start` to get the cluster running
 * `kubectl` now has configuration pointing to this local cluster, for this terminal session
-* Try running `kubectl get cluster-info`
+* Try running `kubectl cluster-info`
 * Double check what cluster you are pointing at if you use an another terminal session
 * Enable the ingress controller, so we can test creating ingresses, by running `minikube addons enable ingress`
 * Enable metrics collection by running `minikube addons enable heapster`
