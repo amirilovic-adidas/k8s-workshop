@@ -1,5 +1,5 @@
-# Kubernetes workshop 5th Jun 2018
-This repo contains the files, documentation and exercises used in the Kubernetes workshop held at adidas HQ in Amsterdam on the 5th of June 2018.
+# Kubernetes workshop 20th Feb 2019
+This repo contains the files, documentation and exercises used in the Kubernetes workshop held at adidas HQ in Amsterdam on the 20th of February 2019.
 
 ---
 
