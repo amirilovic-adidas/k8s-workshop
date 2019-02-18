@@ -6,6 +6,7 @@ metadata:
   labels:
     app: lauriku-app
 spec:
+  type: NodePort
   ports:
   - port: 3000
     targetPort: 3000
