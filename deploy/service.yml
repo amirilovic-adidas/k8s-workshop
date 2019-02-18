@@ -6,7 +6,7 @@ metadata:
   labels:
     app: lauriku-app
 spec:
-  type: NodePort
+  type: NodePort # if using Kubernetes w/Docker for Desktop
   ports:
   - port: 3000
     targetPort: 3000
