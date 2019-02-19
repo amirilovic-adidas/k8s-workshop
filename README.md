@@ -18,25 +18,29 @@ Make sure you have `docker`, and `kubectl` installed.
 * Fork this repository, `https://github.com/lauriku/k8s-workshop.git`
 * Clone it
 
-## Running the container locally
+## Running & Building the container locally
 * `docker build -t lauriku/k8s-workshop .`
 * `docker run -it --rm -p 3000:3000 lauriku/k8s-workshop`
 * Browse [localhost:3000](http://localhost:3000)
 
 ---
 
-# Prep local environment
-## minikube
-minikube is an implementation of a local Kubernetes cluster, that can be used when testing manifests, deployments and so on.
-* BE WARNED: minikube actually overwrites your existing kubeconfig, so take a backup of your `~/.kube/config` if you wish to preserve it.
-* Run `minikube start` to get the cluster running
-* `kubectl` now has configuration pointing to this local cluster, for this terminal session
-* Try running `kubectl cluster-info`
-* Double check what cluster you are pointing at if you use an another terminal session
-  * `kubectl config use-context docker-for-desktop` for local env
-  * `kubectl config use-context dev-dub` for using the development cluster
+# Prep environment
+## Option #1:
+
+Assuming you have gone through the adidas RBAC process for setting up your k8s configuration, you just need to point your kubectl (set default context) to the dev cluster:
+
+* `kubectl config use-context dev-dub`
+
+## Option #2: Kubernetes through Docker for Desktop
+
+Through the Docker for Desktop icon on your OS X, go to *Preferences* -> *Kubernetes* *Enable Kubernetes* and click on *Apply*. This will set up a single-node k8s cluster for you locally to play on.
+
+Once the installation is done, you can run the following command:
+* `kubectl config use-context docker-for-desktop`
 
 ---
+
 # Workshop Exercises
 The first thing to do is to write manifests for the Kubernetes manifest is a description of a _desired state_ of a resource. Three different resource types are going to be needed for this workshop, `deployment`, `service` and `ingress`.
 
