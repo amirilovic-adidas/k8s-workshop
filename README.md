@@ -262,12 +262,12 @@ spec:
         - name: lauriku-app
           ...
           resources:
-          requests:
-            memory: "128Mi"
-            cpu: "5m"
-          limits:
-            memory: "256Mi"
-            cpu: "10m"
+            requests:
+              memory: "128Mi"
+              cpu: "5m"
+            limits:
+              memory: "256Mi"
+              cpu: "10m"
 
 ```
 
