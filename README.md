@@ -13,7 +13,7 @@ The goals of this workshop are:
 * Learn how an application is scaled manually or dynamically
 
 # Getting started
-Make sure you have `docker`, `minikube` and `kubectl` installed.
+Make sure you have `docker`, and `kubectl` installed.
 
 * Fork this repository, `https://github.com/lauriku/k8s-workshop.git`
 * Clone it
@@ -22,12 +22,6 @@ Make sure you have `docker`, `minikube` and `kubectl` installed.
 * `docker build -t lauriku/k8s-workshop .`
 * `docker run -it --rm -p 3000:3000 lauriku/k8s-workshop`
 * Browse [localhost:3000](http://localhost:3000)
-
-## (For extra credit!) Creating a docker hub account
-
-* Create a docker hub account
-* Create an automated build
-* Image can now be pulled by `docker pull <username>/k8s-workshop:latest`
 
 ---
 
@@ -39,8 +33,8 @@ minikube is an implementation of a local Kubernetes cluster, that can be used wh
 * `kubectl` now has configuration pointing to this local cluster, for this terminal session
 * Try running `kubectl cluster-info`
 * Double check what cluster you are pointing at if you use an another terminal session
-* Enable the ingress controller, so we can test creating ingresses, by running `minikube addons enable ingress`
-* Enable metrics collection by running `minikube addons enable heapster`
+  * `kubectl config use-context docker-for-desktop` for local env
+  * `kubectl config use-context dev-dub` for using the development cluster
 
 ---
 # Workshop Exercises
@@ -105,6 +99,7 @@ b. The `spec` of the `service` needs definitions on what port to map to which co
 
 ```yaml
 spec:
+  type: NodePort # add this if using Kubernetes from Docker for Mac
   ports:
     - port: 3000
       targetPort: 3000
@@ -128,9 +123,12 @@ kubectl apply -f deploy/service.yml
 
 And `kubectl get service -o yaml` should now show detailed information of it.
 
-## 3. ingress.yml
+### Accessing your application in local env
 
-a. You know the drill, the `ingress` controller needs some identifying information, so let's go:
+
+## 3. ingress.yml (you can skip this if using local env)
+
+a. For exposing the service in the dev cluster, we need an `ingress` controller:
 
 ```yaml
 metadata:
