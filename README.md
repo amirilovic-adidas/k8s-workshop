@@ -99,7 +99,7 @@ b. The `spec` of the `service` needs definitions on what port to map to which co
 
 ```yaml
 spec:
-  type: NodePort # add this if using Kubernetes from Docker for Mac
+  type: NodePort # add this only if using Kubernetes from Docker for Desktop
   ports:
     - port: 3000
       targetPort: 3000
@@ -125,6 +125,14 @@ And `kubectl get service -o yaml` should now show detailed information of it.
 
 ### Accessing your application in local env
 
+```bash
+$ kubectl get service
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP          5d
+lauriku-svc   NodePort    10.100.154.126   <none>        3000:31248/TCP   1d
+```
+
+So here, you can see that your service is mapped to use port 31248, and you can access it through http://localhost:31248
 
 ## 3. ingress.yml (you can skip this if using local env)
 
@@ -143,7 +151,7 @@ b. Then the `spec`. For the `ingress`, this is a set of rules that determine wha
 ```yaml
 spec:
   rules:
-  - host: lauriku-app.<namespace>.<cluster-hostname>
+  - host: lauriku-app.<namespace>.<cluster-hostname> # please use an unique name here
     http:
       paths:
       - path: /.*
@@ -156,13 +164,10 @@ Here we just route all traffic to port 3000 of the `lauriku-svc` service.
 
 Finally, apply this manifest with `kubectl apply -f deploy/ingress.yml`. It can then be inspected by `kubectl get ingress lauriku-ing -o yaml`.
 
-### Setting up connectivity
-In order to get the correct ip address and port the deployment from the `docker-machine` that is running `minikube`, run the following snippet, and it should open up a browser pointing to the ingress created in the previous step.
+### Accessing the deployment
 
-```bash
-ENDPOINT_HOST=$(minikube ip)
-open $ENDPOINT_HOST
-```
+You should now be able to access the deployment through the specified hostname.
+
 ---
 
 ## 4. Scaling the deployment
@@ -184,9 +189,6 @@ spec:
 
 And then applied with `kubectl apply -f deploy/deployment.yml`.
 
-### Kubernetes dashboard
-You can browse your resources from the Kubernetes dashboard as well, just run `minikube dashboard`.
-
 ## 5. Upgrading the deployment
 Once we have an existing image, an upgrade can be performed by just editing the existing deployment. This can be done with the `kubectl set image` command.
 
@@ -202,8 +204,6 @@ spec:
 ```
 
 And then apply the policy with `kubectl apply -f deploy/deployment.yml`.
-
-EXTRA CREDIT: Configure your Docker Hub automated builds to tag images based on git tags. Then, do a change to `index.js`, tag it, and wait for an image to build, and use the tag with the upgrade in the next step.
 
 Then, you can fire up the RollingUpdate by setting the image of the deployment to the new one:
 
@@ -270,8 +270,6 @@ spec:
 And apply the manifest with `kubectl apply -f deploy/deployment.yml`.
 
 ## 8. Horizontal Pod Autoscaling
-
-You can first check the Grafana dashboard to see a few different metrics in action, `minikube addons open heapster`.
 
 For the HPA to work, we need a HorizontalPodAutoscaler resource. You can create this to `deploy/hpa.yml`.
 
