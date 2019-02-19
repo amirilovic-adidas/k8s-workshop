@@ -138,12 +138,13 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 ```
 
-b. Then the `spec`. For the `ingress`, this is a set of rules that determine what services traffic is routed to, based on routes for example.
+b. Then the `spec`. For the `ingress`, this is a set of rules that determine what services traffic is routed to, based on routes for example. To get a working ingress (nginx) configuration, we need to add a `host` declaration here as well.
 
 ```yaml
 spec:
   rules:
-  - http:
+  - host: lauriku-app.<namespace>.<cluster-hostname>
+    http:
       paths:
       - path: /.*
         backend:
