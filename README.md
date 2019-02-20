@@ -301,4 +301,4 @@ spec:
       targetAverageUtilization: 50
 ```
 
-Apply this with `kubectl apply deplo/hpa.yml`.
+Apply this with `kubectl apply -f deploy/hpa.yml`.
